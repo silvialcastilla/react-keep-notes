@@ -41,7 +41,7 @@ function Note() {
         <CardMedia
           component="img"
           alt="Contemplative Reptile"
-          height="150"
+          height="160"
           image="/static/images/cards/contemplative-reptile.jpg"
           title="Contemplative Reptile"
         />
