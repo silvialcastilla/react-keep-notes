@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-//import Logo from "../../components/logo/Logo";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -35,21 +34,31 @@ const useStyles = makeStyles({
 //https://pixabay.com/api/
 
 function Note() {
-  const [state, setState] = useState("");
+  const [state, setState] = useState({imagen: {image: '', tags: '',theme: ''}});
   const classes = useStyles();  
 
-  const addNote = () => {
+  const changeImage = () => {
     let APIKEY= "15841423-e107f2d5eb403ce2c822f8170";
-    axios.get(`https://pixabay.com/api/?key=${APIKEY}&q=cat&image_type=photo&pretty=true`)
+    return axios.get(`https://pixabay.com/api/?key=${APIKEY}&q=cat&image_type=photo&pretty=true`)
          .then((res) => {
           const random =() => {
             let mayor = res.data.hits.length;
-            return Math.floor((Math.random() * (mayor - 0 + 1)) + 1);
+            return Math.floor((Math.random() * (mayor - 0 + 1)) + 1 );
         }
         
-           let imagen = res.data.hits[random()].largeImageURL;
-          console.log(imagen)
-          //setState(imagen);
+           let images = res.data.hits[random()].largeImageURL;
+          //setState(imagen); //CUIDADOOOOOOOO QUE TE HACE UN BUCLE INFINITO DE PETICIONES
+          // setState(prevState => ({
+          //   imagen: {
+          //     ...prevState.imagen,
+          //     message: {
+          //       ...prevState.imagen.image, 
+          //       image: images
+          //     }
+          //   }
+          // }));
+
+          //console.log(imagen)
      })
     }
   return (
@@ -60,25 +69,24 @@ function Note() {
           component="img"
           alt="Contemplative Reptile"
           height="160"
-          image={state}
+         // image={state.imagen   }
           title="Contemplative Reptile"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            El título que la persona escribe.
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+            La nota que la persona escribe
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
+        <Button size="small" color="primary" onClick={changeImage}>
+          Change the image
         </Button>
-        <Button size="small" color="primary" onClick={addNote()}>
-          Learn More
+        <Button size="small" color="primary" >
+          Change the default theme
         </Button>
       </CardActions>
     </Card>
@@ -89,3 +97,5 @@ function Note() {
 }
 
 export default Note;
+
+//https://stackoverflow.com/questions/54150783/react-hooks-usestate-with-object
