@@ -20,58 +20,74 @@ const useStyles = makeStyles({
   },
 });
 
-
-
-//  let URL = "https://pixabay.com/api/?key="+API_KEY+"&q="+encodeURIComponent('red roses');
-// 	$.getJSON(URL, function(data){
-// 	if (parseInt(data.totalHits) > 0)
-// 	    $.each(data.hits, function(i, hit){ console.log(hit.pageURL); });
-// 	else
-// 	    console.log('No hits');
-// 	});
-//}
-//API KEY: 
-//https://pixabay.com/api/
-
 function Note() {
-  const [state, setState] = useState({imagen: {image: '', tags: '',theme: ''}});
+  const [state, setState] = useState([]);
+  const [url, setUrl] = useState('')
+  const [error, setError] = useState(false)
+  const [errorImage, setErrorImage] = useState(false)
+  
+  let APIKEY= "15841423-e107f2d5eb403ce2c822f8170";
   const classes = useStyles();  
 
-  const changeImage = () => {
-    let APIKEY= "15841423-e107f2d5eb403ce2c822f8170";
-    return axios.get(`https://pixabay.com/api/?key=${APIKEY}&q=cat&image_type=photo&pretty=true`)
+  const changeTheme = () => {
+    return axios.get(`https://pixabay.com/api/?key=${APIKEY}&q=pink&image_type=photo&pretty=true`)
          .then((res) => {
+          //Obten una imagen random
           const random =() => {
             let mayor = res.data.hits.length;
             return Math.floor((Math.random() * (mayor - 0 + 1)) + 1 );
         }
         
-           let images = res.data.hits[random()].largeImageURL;
-          //setState(imagen); //CUIDADOOOOOOOO QUE TE HACE UN BUCLE INFINITO DE PETICIONES
-          // setState(prevState => ({
-          //   imagen: {
-          //     ...prevState.imagen,
-          //     message: {
-          //       ...prevState.imagen.image, 
-          //       image: images
-          //     }
-          //   }
-          // }));
+           let images = res.data.hits[random()]
 
-          //console.log(imagen)
-     })
+           if(images === undefined ) {
+             setErrorImage(true)
+           }
+          setState(images); 
+          setErrorImage(false)
+          
+     }).catch(err => {
+       setError(true)
+     }
+     )
+     setError(false)
+    }
+
+  const changeImage = () => {
+    let APIKEY= "15841423-e107f2d5eb403ce2c822f8170";
+    return axios.get(`https://pixabay.com/api/?key=${APIKEY}&q=pink&image_type=photo&pretty=true`)
+         .then((res) => {
+          //Obten una imagen random
+          const random =() => {
+            let mayor = res.data.hits.length;
+            return Math.floor((Math.random() * (mayor - 0 + 1)) + 1 );
+        }
+        
+           let images = res.data.hits[random()]
+
+           if(images === undefined ) {
+             setErrorImage(true)
+           }
+          setState(images); 
+          setErrorImage(false)
+          
+     }).catch(err => {
+       setError(true)
+     }
+     )
+     setError(false)
     }
   return (
     <div className="note">
             <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia
+        {error ? <p>No hemos podido encontrar una imagen</p>: <CardMedia
           component="img"
-          alt="Contemplative Reptile"
+          alt={state.tags}
           height="160"
-         // image={state.imagen   }
-          title="Contemplative Reptile"
-        />
+          image={state.largeImageURL}
+          title={state.tags}
+        />}
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             El título que la persona escribe.
@@ -85,12 +101,13 @@ function Note() {
         <Button size="small" color="primary" onClick={changeImage}>
           Change the image
         </Button>
-        <Button size="small" color="primary" >
+        <Button size="small" color="primary" onClick={changeTheme}>
           Change the default theme
         </Button>
       </CardActions>
     </Card>
 
+    <input type="submit" value="Submit" />
 
     </div>
   );  
