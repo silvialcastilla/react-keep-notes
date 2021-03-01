@@ -29,20 +29,15 @@ function Note() {
 
   useEffect(() => {
     changeImage()
-  }, [])
+    setInput(false)
+  }, [theme])
 
-  const changeTheme = () => {
-    setInput(true);
-  };
 
-  const changeThema = (e) => {
-    setTheme(e.target.value);
-  };
 
-  const submitTheme = (e) => {
+  const changeTheme = (e) => {
     e.preventDefault();
+    setTheme(document.getElementById('theme').value)
     setInput(false);
-    changeImage();
   };
 
   const changeImage = () => {
@@ -75,6 +70,7 @@ function Note() {
         setErrorImage(false);
       });
   };
+
   return (
     <div className="note">
       <Card className={classes.root}>
@@ -103,23 +99,21 @@ function Note() {
           <Button size="small" color="primary" onClick={changeImage}>
             Change the image
           </Button>
-          <Button size="small" color="primary" onClick={changeTheme}>
+          <Button size="small" color="primary" onClick={()=> setInput(true)}>
             Change the default theme
           </Button>
           {input ? (
-            <form onSubmit={submitTheme}>
+            <div>
               <input
                 name="theme"
-                className="theme"
                 type="text"
                 placeholder="Busca un tema en las fotos"
-                onChange={changeThema}
+                id="theme"
               />
-
-              <button type="submit" className="">
+              <button onClick={changeTheme}>
                 Cambiar el tema
               </button>
-            </form>
+              </div>
           ) : (
             <></>
           )}
