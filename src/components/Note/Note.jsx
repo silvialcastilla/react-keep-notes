@@ -37,7 +37,6 @@ function Note() {
   const changeTheme = (e) => {
     e.preventDefault();
     setTheme(document.getElementById('theme').value)
-    setInput(false);
   };
 
   const changeImage = () => {
