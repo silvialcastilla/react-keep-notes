@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -26,6 +26,10 @@ function Note() {
 
   const APIKEY = "15841423-e107f2d5eb403ce2c822f8170";
   const classes = useStyles();
+
+  useEffect(() => {
+    changeImage()
+  }, [])
 
   const changeTheme = () => {
     setInput(true);
