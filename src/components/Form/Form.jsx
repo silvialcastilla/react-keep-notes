@@ -2,25 +2,22 @@ import React, { useState } from 'react'
 //import Logo from "../../components/logo/Logo";
 
 
-function Form() {
+function Form({createNote}) {
   //En el futuro, se hará una petición a back donde se envien estos datos
-  const [state, setState] = useState({ title: '', content: '' });
+  const [state, setState] = useState([{ title: '', content: '' }]);
   const [bigForm, setBigForm] = useState(false);
   const [error, setError] = useState(false)
 
   const { title, content } = state;
 
   const upgradeState = (e) => {
-    setState([...state, e])
+    setState((pokemon) => [...pokemon, e.data]);
   }
   const addNote = (e) => {
     e.preventDefault();
     if (title.trim() === "" || content.trim() === "") setError(true)
     setError(false)
-    setState({
-      title: '',
-      content: ''
-    })
+    createNote(state)
   }
 
 
@@ -49,11 +46,12 @@ function Form() {
           <input type="submit" value="Submit" />
         </form>) : (<input type="text" onClick={() => setBigForm(true)} />
         )}
-      {error ? <p>Debes rellenar todos los campos</p> :
-        (<div>{state.map(data => {
-          <p>{data.title} {dat.content}{/* El fallo está en que no es un array */}</p>
-        })}
-        </div>)}
+      {error ? <p>Debes rellenar todos los campos</p> : <p>Hola</p>
+        // (<div>{state.map(data => {
+        //   <p>{data.title} {data.content}{/* El fallo está en que no es un array */}</p>
+        // })}
+        // </div>)
+      }
     </div>
   );
 }
