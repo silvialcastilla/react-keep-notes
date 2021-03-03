@@ -9,6 +9,8 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 
+//Hay otro fallo ya que se meten las demás pero se queda el primero arriba sin imagen. Why??? 
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -18,11 +20,12 @@ const useStyles = makeStyles({
   },
 });
 
-function Note() {
+function Note({title, content}) {
   const [state, setState] = useState([]);
   const [theme, setTheme] = useState("cat");
   const [input, setInput] = useState(false);
   const [errorImage, setErrorImage] = useState(false);
+  const [error, setError] = useState(true)
 
   const APIKEY = "15841423-e107f2d5eb403ce2c822f8170";
   const classes = useStyles();
@@ -32,7 +35,9 @@ function Note() {
     setInput(false)
   }, [theme])
 
-
+  // if((title || content) ==! undefined ) {
+  //   setError(true)
+  // }
 
   const changeTheme = (e) => {
     e.preventDefault();
@@ -87,10 +92,10 @@ function Note() {
           )}
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              El título que la persona escribe.
+              {title}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              La nota que la persona escribe
+              {content}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -123,5 +128,3 @@ function Note() {
 }
 
 export default Note;
-
-//https://stackoverflow.com/questions/54150783/react-hooks-usestate-with-object

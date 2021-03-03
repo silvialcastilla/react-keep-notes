@@ -1,12 +1,25 @@
 import React, { useState } from "react";
-//import Logo from "../../components/logo/Logo";
 import Note from "../../components/Note/Note";
+import Form from "../Form/Form"
 
 function NoteList() {
-  const [notes, setNotes] = useState([]);
+  const [notes, saveNotes] = useState([]);
+
+  const createNote = note => {
+    saveNotes([...notes, note]);
+  };
+
+  const eliminarCita = id => {
+    const newsNotes = notes.filter(cita => cita.id !== id);
+    saveNotes(newsNotes);
+  };
+
   return (
     <div className="note">
-      <p>NoteList</p>
+      <Form createNote={createNote}/>
+      <div>{notes.map((note, i) => (
+        <Note key={i} title={note.title} content={note.content}/>
+            ))}</div>
       <Note />
     </div>
   );

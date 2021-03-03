@@ -4,14 +4,16 @@ import React, { useState } from 'react'
 
 function Form({createNote}) {
   //En el futuro, se hará una petición a back donde se envien estos datos
-  const [state, setState] = useState([{ title: '', content: '' }]);
+  const [state, setState] = useState({ title: '', content: '' });
   const [bigForm, setBigForm] = useState(false);
   const [error, setError] = useState(false)
 
   const { title, content } = state;
 
   const upgradeState = (e) => {
-    setState((pokemon) => [...pokemon, e.data]);
+    setState({     
+      ...state /*lo hace para que coja todo el objeto, no solo una parte*/,
+      [e.target.name]: e.target.value});
   }
   const addNote = (e) => {
     e.preventDefault();
