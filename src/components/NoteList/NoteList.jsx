@@ -6,21 +6,20 @@ function NoteList() {
   const [notes, saveNotes] = useState([]);
 
   const createNote = note => {
-    saveNotes([...notes, note]);
+    saveNotes([note, ...notes]);
   };
 
-  const eliminarCita = id => {
-    const newsNotes = notes.filter(cita => cita.id !== id);
+  const deleteNote = id => {
+    const newsNotes = notes.filter(note => note.id !== id);
     saveNotes(newsNotes);
   };
 
   return (
     <div className="note">
       <Form createNote={createNote}/>
-      <div>{notes.map((note, i) => (
-        <Note key={i} title={note.title} content={note.content}/>
-            ))}</div>
-      <Note />
+      {notes.map((note) => (
+        <Note key={note.id} deleteNote={deleteNote} notes={note}/>
+            ))}
     </div>
   );
 }

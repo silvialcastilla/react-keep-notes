@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Note({title, content}) {
+function Note({ notes, deleteNote }) {
   const [state, setState] = useState([]);
   const [theme, setTheme] = useState("cat");
   const [input, setInput] = useState(false);
@@ -35,10 +35,6 @@ function Note({title, content}) {
     setInput(false)
   }, [theme])
 
-  // if((title || content) ==! undefined ) {
-  //   setError(true)
-  // }
-
   const changeTheme = (e) => {
     e.preventDefault();
     setTheme(document.getElementById('theme').value)
@@ -50,7 +46,6 @@ function Note({title, content}) {
         `https://pixabay.com/api/?key=${APIKEY}&q=${theme}&image_type=photo&pretty=true`
       )
       .then((res) => {
-        //Obten una imagen random
         const random = () => {
           let mayor = res.data.hits.length;
           return Math.floor(Math.random() * (mayor - 0 + 1) + 1);
@@ -82,20 +77,20 @@ function Note({title, content}) {
           {errorImage ? (
             <p>No hemos podido encontrar una imagen</p>
           ) : (
-            <CardMedia
-              component="img"
-              alt={state.tags}
-              height="160"
-              image={state.largeImageURL}
-              title={state.tags}
-            />
-          )}
+              <CardMedia
+                component="img"
+                alt={state.tags}
+                height="160"
+                image={state.largeImageURL}
+                title={state.tags}
+              />
+            )}
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {title}
+              {notes.title}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {content}
+              {notes.content}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -103,7 +98,7 @@ function Note({title, content}) {
           <Button size="small" color="primary" onClick={changeImage}>
             Change the image
           </Button>
-          <Button size="small" color="primary" onClick={()=> setInput(true)}>
+          <Button size="small" color="primary" onClick={() => setInput(true)}>
             Change the default theme
           </Button>
           {input ? (
@@ -117,10 +112,17 @@ function Note({title, content}) {
               <button onClick={changeTheme}>
                 Cambiar el tema
               </button>
-              </div>
+            </div>
+
           ) : (
-            <></>
-          )}
+              <></>
+            )}
+              <button
+                className="button eliminar u-full-width"
+                onClick={() => deleteNote(notes.id)}
+              >
+                Eliminar
+              </button>
         </CardActions>
       </Card>
     </div>

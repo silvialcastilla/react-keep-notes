@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-//import Logo from "../../components/logo/Logo";
+import { uuid } from 'uuidv4';
 
 
 function Form({createNote}) {
@@ -12,12 +12,13 @@ function Form({createNote}) {
 
   const upgradeState = (e) => {
     setState({     
-      ...state /*lo hace para que coja todo el objeto, no solo una parte*/,
+      ...state,
       [e.target.name]: e.target.value});
   }
   const addNote = (e) => {
     e.preventDefault();
-    if (title.trim() === "" || content.trim() === "") setError(true)
+    if (title.trim() === "" || content.trim() === "") return setError(true) 
+    state.id = uuid();
     setError(false)
     createNote(state)
   }
@@ -48,12 +49,7 @@ function Form({createNote}) {
           <input type="submit" value="Submit" />
         </form>) : (<input type="text" onClick={() => setBigForm(true)} />
         )}
-      {error ? <p>Debes rellenar todos los campos</p> : <p>Hola</p>
-        // (<div>{state.map(data => {
-        //   <p>{data.title} {data.content}{/* El fallo está en que no es un array */}</p>
-        // })}
-        // </div>)
-      }
+      {error ? <p>Debes rellenar todos los campos</p> : <></>}
     </div>
   );
 }
