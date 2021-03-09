@@ -1,13 +1,14 @@
 import React from 'react'
 //import Logo from "../../components/logo/Logo";
+import SearchIcon from '@material-ui/icons/Search';
 
 
 
 function Finder() {
   return (
     <form className="finder">
-      <h1>Finder</h1>
-        <input type="text"/>
+      <SearchIcon/>
+        <input type="text"></input>
     </form>
   );
 }

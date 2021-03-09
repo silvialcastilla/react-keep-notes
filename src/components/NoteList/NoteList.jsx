@@ -16,10 +16,10 @@ function NoteList() {
 
   return (
     <div className="note">
-      <Form createNote={createNote}/>
+      <Form createNote={createNote} />
       {notes.map((note) => (
-        <Note key={note.id} deleteNote={deleteNote} notes={note}/>
-            ))}
+        <Note key={note.id} notes={note} deleteNote={deleteNote} />
+      ))}
     </div>
   );
 }

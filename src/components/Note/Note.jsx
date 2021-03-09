@@ -9,8 +9,6 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 
-//Hay otro fallo ya que se meten las demás pero se queda el primero arriba sin imagen. Why??? 
-
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -25,7 +23,6 @@ function Note({ notes, deleteNote }) {
   const [theme, setTheme] = useState("cat");
   const [input, setInput] = useState(false);
   const [errorImage, setErrorImage] = useState(false);
-  const [error, setError] = useState(true)
 
   const APIKEY = "15841423-e107f2d5eb403ce2c822f8170";
   const classes = useStyles();
