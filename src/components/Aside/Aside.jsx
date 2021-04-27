@@ -12,7 +12,9 @@ function Aside() {
         if (navBar == false) {
             setNavBar(true)
         }
-        setNavBar(false)
+        if (navBar == true) {
+            setNavBar(false)
+        }
     }
 
     return (

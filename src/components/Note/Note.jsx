@@ -18,9 +18,11 @@ const useStyles = makeStyles({
   },
 });
 
-function Note({ notes, deleteNote }) {
+function Note({ notes, allNotes, saveNotes, deleteNote }) {
   const [state, setState] = useState([]);
   const [theme, setTheme] = useState("cat");
+  const [data, setData] = useState(allNotes);
+  const [modify, setModify] = useState(false);
   const [input, setInput] = useState(false);
   const [errorImage, setErrorImage] = useState(false);
 
@@ -36,6 +38,25 @@ function Note({ notes, deleteNote }) {
     e.preventDefault();
     setTheme(document.getElementById('theme').value)
   };
+
+
+  const handleEditChange = (e) => {
+    setData(e.target.value)
+  }
+
+  const handleEditSubmit = (id) => {
+    // const editedList = data.map((oneTodo) => {
+    //   if (oneTodo.id === id) {
+    //     console.log(id);
+    //     oneTodo.task = data;
+    //   }
+    //   return oneTodo;
+    // });
+    //   console.log()
+    //   //saveNotes(editedList.filter((i) => i.id  == id)[0].title);
+    // // handleEdit();
+    // // console.log(todo, id);
+  }
 
   const changeImage = () => {
     return axios
@@ -83,12 +104,37 @@ function Note({ notes, deleteNote }) {
               />
             )}
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
+            { modify ? (            
+            <div>
+              <input
+                name="theme"
+                type="text"
+                placeholder="Busca un tema en las fotos"
+                id="theme"
+                
+                onChange={handleEditChange}
+              />
+              <input
+                name="theme"
+                type="text"
+                placeholder="Busca un tema en las fotos"
+                id="content"
+                
+                onChange={handleEditChange}
+              />
+              <button onClick={handleEditSubmit(notes.id)} >
+                Cambiar
+              </button>
+            </div>) : ( <><Typography gutterBottom variant="h5" component="h2">
               {notes.title}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               {notes.content}
             </Typography>
+            </>
+            )
+            }
+           
           </CardContent>
         </CardActionArea>
         <CardActions>
@@ -114,12 +160,20 @@ function Note({ notes, deleteNote }) {
           ) : (
               <></>
             )}
+            <>
+              <button
+                className="button eliminar u-full-width"
+                onClick={()=> {setModify(true)}}
+              >
+                Modificar
+              </button>
               <button
                 className="button eliminar u-full-width"
                 onClick={() => deleteNote(notes.id)}
               >
                 Eliminar
               </button>
+              </>
         </CardActions>
       </Card>
     </div>

@@ -17,9 +17,10 @@ function NoteList() {
   return (
     <div className="note">
       <Form createNote={createNote} />
-      {notes.map((note) => (
-        <Note key={note.id} notes={note} deleteNote={deleteNote} />
-      ))}
+      {notes.length > 0 ? (<>{notes.map((note) => (
+        <Note key={note.id} notes={note} allNotes={notes} saveNotes={saveNotes} deleteNote={deleteNote} />
+      ))}</>) : (<p>No hay notas</p>)}
+      
     </div>
   );
 }

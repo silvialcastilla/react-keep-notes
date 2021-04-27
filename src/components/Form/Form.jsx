@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { uuid } from 'uuidv4';
 
-
 function Form({createNote}) {
   //En el futuro, se hará una petición a back donde se envien estos datos
   const [state, setState] = useState({ title: '', content: '' });
@@ -47,7 +46,9 @@ function Form({createNote}) {
           />
 
           <input type="submit" value="Submit" />
-        </form>) : (<input type="text" onClick={() => setBigForm(true)} />
+        </form>)
+         
+         : (<input type="text" onClick={() => setBigForm(true)} />
         )}
       {error ? <p>Debes rellenar todos los campos</p> : <></>}
     </div>
