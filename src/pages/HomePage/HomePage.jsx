@@ -3,7 +3,6 @@ import Aside from '../../components/Aside/Aside'
 import NoteList from '../../components/NoteList/NoteList'
 //import Logo from "../../components/logo/Logo";
 import { useHistory } from "react-router-dom";
-import Database from '../../database/Database';
 
 function HomePage() {
   let history = useHistory();
@@ -21,9 +20,6 @@ function HomePage() {
       <h1>HomePage</h1>
       <Aside/>
       <NoteList/>
-      <Database/>
-      <button onClick={send}value="ey" name="valor">Pulsa</button>
-      <button onClick={send}value="ey" name="dado">Pulsa</button>
     </div>
   );
 }

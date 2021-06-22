@@ -5,9 +5,12 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
+import ButtonUi from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
+
+import Button from "../Button/Button";
+import Input from "../Input/Input"
 
 const useStyles = makeStyles({
   root: {
@@ -106,25 +109,23 @@ function Note({ notes, allNotes, saveNotes, deleteNote }) {
           <CardContent>
             { modify ? (            
             <div>
-              <input
+              <Input
                 name="theme"
                 type="text"
                 placeholder="Busca un tema en las fotos"
                 id="theme"
-                
                 onChange={handleEditChange}
               />
-              <input
+              <Input
                 name="theme"
                 type="text"
                 placeholder="Busca un tema en las fotos"
                 id="content"
-                
                 onChange={handleEditChange}
               />
-              <button onClick={handleEditSubmit(notes.id)} >
+              <Button onClick={handleEditSubmit(notes.id)} >
                 Cambiar
-              </button>
+              </Button>
             </div>) : ( <><Typography gutterBottom variant="h5" component="h2">
               {notes.title}
             </Typography>
@@ -138,41 +139,37 @@ function Note({ notes, allNotes, saveNotes, deleteNote }) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary" onClick={changeImage}>
+          <ButtonUi size="small" color="primary" onClick={changeImage}>
             Change the image
-          </Button>
-          <Button size="small" color="primary" onClick={() => setInput(true)}>
+          </ButtonUi>
+          <ButtonUi size="small" color="primary" onClick={() => setInput(true)}>
             Change the default theme
-          </Button>
+          </ButtonUi>
           {input ? (
             <div>
-              <input
+              <Input
                 name="theme"
                 type="text"
                 placeholder="Busca un tema en las fotos"
                 id="theme"
               />
-              <button onClick={changeTheme}>
-                Cambiar el tema
-              </button>
+              <Button onClick={changeTheme} title="Cambiar el tema"/>
             </div>
 
           ) : (
               <></>
             )}
             <>
-              <button
-                className="button eliminar u-full-width"
+              <Button
+                btnClass="button eliminar u-full-width"
                 onClick={()=> {setModify(true)}}
-              >
-                Modificar
-              </button>
-              <button
-                className="button eliminar u-full-width"
+                title="Modificar"
+                />
+              <Button
+                btnClass="button eliminar u-full-width"
                 onClick={() => deleteNote(notes.id)}
-              >
-                Eliminar
-              </button>
+                title="Eliminar"
+                />
               </>
         </CardActions>
       </Card>

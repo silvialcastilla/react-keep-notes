@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { uuid } from 'uuidv4';
 
-function Form({createNote}) {
+import Button from '../Button/Button';
+import Input from '../Input/Input'
+
+function Form({createNote, btnClass}) {
   //En el futuro, se hará una petición a back donde se envien estos datos
   const [state, setState] = useState({ title: '', content: '' });
   const [bigForm, setBigForm] = useState(false);
@@ -28,27 +31,27 @@ function Form({createNote}) {
     <div>
       {bigForm ?
         (<form onSubmit={addNote}>
-          <input
+          <Input
             type="text"
             name="title"
-            className="u-full-width"
+            classStylee="u-full-width"
             placeholder="Título"
             onChange={upgradeState}
-            value={title}
+            content={title}
           />
-          <input
+          <Input
             type="text"
             name="content"
-            className="u-full-width"
+            classStyle="u-full-width"
             placeholder="Tu nota"
             onChange={upgradeState}
-            value={content}
+            content={content}
           />
 
-          <input type="submit" value="Submit" />
+          <Button btnClass="btn-submit" title="Create your note" type="submit"/>
         </form>)
          
-         : (<input type="text" onClick={() => setBigForm(true)} />
+         : (<Input type="text" change ={() => setBigForm(true)} /> 
         )}
       {error ? <p>Debes rellenar todos los campos</p> : <></>}
     </div>
